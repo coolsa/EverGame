@@ -1,24 +1,24 @@
 package pp.game.textures;
 
-public enum BackgroundTextureType {
-	BASE_0("textures/background/base_0.png", 256, 256),
-	BASE_1("textures/background/base_1.png", 256, 256),
-	BASE_2("textures/background/base_2.png", 256, 256),
-	BASE_3("textures/background/base_3.png", 256, 256);
-	
-	private String assetPath;
-	private float width;
-	private float height;
-	
-	private BackgroundTextureType(String assetPath, float width, float height) {
+public abstract class BackgroundTextureType implements LevelAspect
+{
+    protected String assetPath;
+    protected float width, height; 
+    protected Level l;
+
+
+    private BackgroundTextureType(String assetPath, float width, float height, Level l) {
 		this.assetPath = assetPath;
 		this.width = width;
 		this.height = height;
+        this.l = l;
 	}
 
-	public String getAssetPath() {
-		return assetPath;
-	}
+    @Override
+    public void create_level();
+
+    @Override
+    public String item();
 
 	public float getWidth() {
 		return width;
@@ -27,4 +27,10 @@ public enum BackgroundTextureType {
 	public float getHeight() {
 		return height;
 	}
+
+    public void setLevel(Level l)
+    {
+        this.l = l;
+    }
+
 }

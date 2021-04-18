@@ -2,24 +2,47 @@ package pp.game.entities;
 
 import org.andengine.entity.sprite.*;
 
+import pp.game.level.*;
+
 import com.badlogic.gdx.physics.box2d.*;
 
-abstract class DieableEntity extends BaseEntity implements IDieableEntity {
+public abstract class DieableEntity implements LevelAspect {
 	private static final float FULL_HP_COEF = 0.8f;
 	private static final float MEDIUM_HP_COEF = 0.5f;
 	
-	private volatile boolean isDead = false;
-	private float currentHP;
-	private float maxHP;
-	private volatile HPState hpState;
-	private Sprite aliveSprite;
-	private Sprite deadSprite;
-	private Body aliveBody;
-	private Body deadBody;
+	private volatile boolean isDead;
+    protected float currentHP;
+    protected float maxHP;
+    protected Body aliveBody;
+    protected Body deadBody;
+    protected String type;
+    protected Level l;
 	
 	public DieableEntity() {
 		
 	}
+
+	public DieableEntity(boolean dead, float currentHP, float maxHP, Body aliveBody, Body deadBody, String type, Level l)
+    {
+        this.isDead = dead;
+        this.currentHP = currentHP;
+        this.maxHP = maxHP;
+        this.aliveBody = aliveBody;
+        this.deadBody = deadBody;
+        this.type = type; 
+        this.l = l;
+    }
+
+	@Override
+	public void create_level();
+
+	@Override
+	public String item();
+
+    public void setLevel(Level l)
+    {
+        this.l = l;
+    }
 	
 	protected abstract void die();
 	
@@ -36,12 +59,10 @@ abstract class DieableEntity extends BaseEntity implements IDieableEntity {
 		}
 	}
 	
-	@Override
 	public float getCurrentHP() {
 		return currentHP;
 	}
 
-	@Override
 	public void adjustCurrentHP(float value) {
 		this.currentHP += value;
 		if (currentHP <= 0) {
@@ -56,43 +77,35 @@ abstract class DieableEntity extends BaseEntity implements IDieableEntity {
 		adjustHPState();
 	}
 
-	@Override
 	public float getMaxHP() {
 		return maxHP;
 	}
 
-	@Override
 	public void setMaxHP(float maxHP) {
 		this.maxHP = maxHP;
 		adjustHPState();
 	}
 
-	@Override
 	public boolean isDead() {
 		return isDead;
 	}
 	
-	@Override
 	public Sprite getAliveSprite() {
 		return aliveSprite;
 	}
 
-	@Override
 	public Sprite getDeadSprite() {
 		return deadSprite;
 	}
-	
-	@Override
+
 	public Body getBody() {
 		return isDead() ? getDeadBody() : getAliveBody();
 	}
 	
-	@Override
 	public Sprite getShape() {
 		return isDead() ? getDeadSprite() : getAliveSprite();
 	}
 	
-	@Override
 	public HPState getHPState() {
 		return hpState;
 	}
@@ -114,7 +127,7 @@ abstract class DieableEntity extends BaseEntity implements IDieableEntity {
 		this.deadSprite = deadSprite;
 	}
 
-	@Override
+
 	public Body getAliveBody() {
 		return aliveBody;
 	}
@@ -123,7 +136,7 @@ abstract class DieableEntity extends BaseEntity implements IDieableEntity {
 		this.aliveBody = aliveBody;
 	}
 
-	@Override
+
 	public Body getDeadBody() {
 		return deadBody;
 	}

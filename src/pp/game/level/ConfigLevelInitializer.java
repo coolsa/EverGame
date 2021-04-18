@@ -10,26 +10,79 @@ import pp.game.handlers.level.*;
 import pp.game.textures.*;
 import android.util.*;
 
-class ConfigLevelInitializer implements ILevelInitializer {
+class ConfigLevelInitializer implements LevelMaker {
 private static final String SEPARATOR = ",";
 	
-	private static final String BACKGROUND = "background";
-	private static final String MUSIC = "music";
-	private static final String PLAYER_HP_INITIAL = "player.hp.initial";
-	private static final String PLAYER_HP_MAX = "player.hp.max";
-	private static final String MONSTERS_TYPES = "monsters.types";
-	private static final String MONSTERS_SPAWN_INTERVALS = "monsters.spawn.interval";
-	private static final String MONSTERS_SPAWN_INTERVAL_DECREMENTS = "monsters.spawn.interval.decrement";
+	private static final String BACKGROUND;
+	private static final String MUSIC;
+	private static final String PLAYER_HP_INITIAL;
+	private static final String PLAYER_HP_MAX;
+	private static final String MONSTERS_TYPES;
+	private static final String MONSTERS_SPAWN_INTERVALS;
+	private static final String MONSTERS_SPAWN_INTERVAL_DECREMENTS;
 	
 	private Properties props;
+	private DieableEntity de;
+    private BackgroundTextureType bt;
+	private GameMusicType gm;
 	
-	public ConfigLevelInitializer(ConfigLevelType type) {
+	public ConfigLevelInitializer(ConfigLevelType type, DieableEntity de, BackgroundTextureType bt, GameMusicType gm) {
+		this.de = de;
+		this.bt = bt;
+		this.gm = gm;
 		props = new Properties();
 		try {
 			props.load(Game.getGameActivity().getAssets().open(type.getAssetPath()));
 		} catch (IOException e) {
 			Log.e("", "Error creating level " + type, e);
 		}
+	}
+
+	public void setMusic(String s)
+	{
+		music = s;
+	}
+	
+	public void setBackgroundTextureType(String s)
+	{
+		background = s;
+	}
+
+	public void setMonsterTypes(String s)
+	{
+		monster_types = s;
+	}
+
+	public void setSpawnInterval(String s)
+	{
+		monsters_spawn_intervals = s;
+	}
+
+	public void setSpawnIntervalDec(String s)
+	{
+		spawnIntervalDecrements = s;
+	}
+
+	public void setPlayerHpInitial(String s)
+	{
+		player_hp_initial = s;
+	}
+
+	public void setPlayerHPMax(String s)
+	{
+		player_hp_max = s;
+	}
+
+	@Override
+	public LevelAspect create_level() {
+		BasicLevel level = new BasicLevel();
+		level.setGameMusicType(getGameMusicType());
+		level.setInitialPlayerHP(getInitialPlayerHP());
+		level.setMaxPlayerHP(getMaxPlayerHP());
+		de.setLevel(level)
+		bt.setLevel(level);
+		gm.setLevel(level);
+		return level;
 	}
 	
 	private float[] convertToFloat(String property) {
@@ -89,20 +142,5 @@ private static final String SEPARATOR = ",";
 		String hp = props.getProperty(PLAYER_HP_MAX);
 		return hp == null ? 0 : Float.valueOf(hp);
 	}
-	
-	@Override
-	public ILevel getLevel() {
-		BasicLevel level = new BasicLevel();
-		level.setBackgroundTextureType(getBackground());
-		level.setGameMusicType(getGameMusicType());
-		level.setInitialPlayerHP(getInitialPlayerHP());
-		level.setMaxPlayerHP(getMaxPlayerHP());
-		return level;
-	}
-	
-	@Override
-	public ILevelHandler getLevelHandler() {
-		return new BasicLevelHandler(getMonstersTypes(),
-			getSpawnIntervals(), getSpawnIntervalsDecrements());
-	}
+
 }

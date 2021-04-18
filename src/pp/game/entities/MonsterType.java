@@ -1,25 +1,43 @@
 package pp.game.entities;
 
-import pp.game.utils.geometry.*;
+import org.andengine.entity.sprite.*;
 
-public enum MonsterType {
-	RUNNER(100, SceneLayoutUtils.DEFAULT_PLAYER_SPEED * 0.50f, 5, 0.5f,		10), 
-	ZOMBIE(250, SceneLayoutUtils.DEFAULT_PLAYER_SPEED * 0.17f, 15, 1,		25), 
-	SPIDER(150, SceneLayoutUtils.DEFAULT_PLAYER_SPEED * 0.33f, 10, 0.75f,	15);
-	
+import pp.game.level.*;
+
+import com.badlogic.gdx.physics.box2d.*;
+
+public class MonsterType extends DieableEntity {
 	private float HP;
 	private float walkSpeed;
 	private float damage;
 	private float attackSpeed;		// in seconds
 	private int scorePoints;
-	
-	private MonsterType(float hP, float walkSpeed, float damage,
-			float attackSpeed, int scorePoints) {
+    private String spawnIntervals;
+    private String spawnIntervalDecrements;
+
+    private MonsterType(boolean dead, float currentHP, float maxHP, Body aliveBody, Body deadBody, String type, Level l, 
+            float hP, float walkSpeed, float damage,
+			float attackSpeed, int scorePoints, String interval, String intervalDec) {
+        super(dead, currentHP, maxHP, aliveBody, deadBody, type, l);
 		HP = hP;
 		this.walkSpeed = walkSpeed;
 		this.damage = damage;
 		this.attackSpeed = attackSpeed;
 		this.scorePoints = scorePoints;
+        spawnIntervals = interval;
+        spawnIntervalDecrements = intervalDec;
+	}
+	@Override
+    public abstract create_level()
+	{
+		l.setMonsterTypes(this.type);
+        l.setSpawnInterval(this.spawnIntervals);
+        l.setSpawnIntervalDec(this.spawnIntervalDecrements);
+	}
+	@Override
+	public String item()
+	{
+		return type;
 	}
 
 	public float getHP() {
@@ -41,4 +59,19 @@ public enum MonsterType {
 	public int getScorePoints() {
 		return scorePoints;
 	}
+
+    public String getSpawnInterval()
+    {
+        return spawnIntervals;
+    }
+
+    public String get spawnIntervalDec()
+    {
+        return spawnIntervalDecrements;
+    }
+
+    public void setLevel(Level l)
+    {
+        this.l = l;
+    }
 }

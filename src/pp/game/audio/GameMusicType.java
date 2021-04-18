@@ -1,19 +1,29 @@
 package pp.game.audio;
 
-public enum GameMusicType {
-	BASE_0("music/game/base_0.ogg"),
-	BASE_1("music/game/base_1.ogg"),
-	BASE_2("music/game/base_2.ogg"),
-	END_GAME("music/game/end_game.ogg"),
-	LOW_HP("music/game/low_hp.ogg");
-	
-	private String assetPath;
-	
-	private GameMusicType(String assetPath) {
+import org.andengine.entity.sprite.*;
+
+import pp.game.level.*;
+
+import com.badlogic.gdx.physics.box2d.*;
+
+public abstract class GameMusicType implements LevelAspect
+{
+    protected String assetPath;
+    protected Level l;
+
+    private GameMusicType(String assetPath, Level l) {
 		this.assetPath = assetPath;
+        this.l = l;
 	}
 	
 	public String getAssetPath() {
 		return assetPath;
 	}
+
+    @Override
+    public void create_level();
+
+    @Override
+    public String item(); 
+
 }
