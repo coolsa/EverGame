@@ -11,6 +11,9 @@ import pp.game.level.*;
 import pp.game.scene.hud.*;
 
 public class MainScene extends Scene implements IOnMenuItemClickListener, IChildClickListener, IPreparable {
+	
+	private static MainScene INSTANCE;
+	
 	static final int MAIN_MENU_NEW_GAME = 0x0;
 	static final int MAIN_MENU_HIGH_SCORES = 0x1;
 	static final int MAIN_MENU_EXIT = 0x2;
@@ -22,7 +25,7 @@ public class MainScene extends Scene implements IOnMenuItemClickListener, IChild
 	private PauseMenuScene pauseMenuScene;
 	private HighScoresMenuScene highScoresScene;
 	
-	public MainScene() {
+	private MainScene() {
 		Game.getGameInstance().addPreparable(this);
 		
 		mainMenuScene = new MainMenuScene(this);
@@ -34,6 +37,10 @@ public class MainScene extends Scene implements IOnMenuItemClickListener, IChild
 		setChildScene(mainMenuScene);
 	}
 	
+	public static Scene getInstance() {
+		if(INSTANCE == null) INSTANCE = new MainScene();
+		return INSTANCE;
+	}
 	@Override
 	public void back() {
 		

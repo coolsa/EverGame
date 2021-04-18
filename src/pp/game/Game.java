@@ -116,7 +116,7 @@ public class Game implements IGame, IGameInitializer, IObservable<Integer> {
 	public void initialize() {	
 		AudioHolder.getInstance().initialize();
 		TextureHolder.getInstance();
-		scene = new MainScene();
+		scene = MainScene.getInstance();
 		initializePreparables();
 	}	
 	
