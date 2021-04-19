@@ -30,16 +30,16 @@ class SceneContactListener implements ContactListener {
 		
 		// PLAYER && MONSTER CONTACT
 		if (typeA == EntityType.PLAYER && typeB == EntityType.MONSTER) {
-			handler = ContactResolver.getPlayerMonsterContactHandler((Monster)entityB);
+			handler = ContactResolver.getPlayerMonsterContactHandler((MonsterType)entityB);
 		} else if (typeB == EntityType.PLAYER && typeA == EntityType.MONSTER) {
-			handler = ContactResolver.getPlayerMonsterContactHandler((Monster)entityA);
+			handler = ContactResolver.getPlayerMonsterContactHandler((MonsterType)entityA);
 		}
 		
 		// BULLET && MONSTER CONTACT
 		else if (typeA == EntityType.BULLET && typeB == EntityType.MONSTER) {
-			ContactResolver.handleBulletMonsterContact((Bullet)entityA, (Monster)entityB);
+			ContactResolver.handleBulletMonsterContact((Bullet)entityA, (MonsterType)entityB);
 		} else if (typeB == EntityType.BULLET && typeA == EntityType.MONSTER) {
-			ContactResolver.handleBulletMonsterContact((Bullet)entityB, (Monster)entityA);
+			ContactResolver.handleBulletMonsterContact((Bullet)entityB, (MonsterType)entityA);
 		}
 		
 		// BONUS && PLAYER CONTACT

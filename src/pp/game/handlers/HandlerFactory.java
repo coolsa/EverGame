@@ -8,7 +8,7 @@ public class HandlerFactory {
 		
 	}
 	
-	public static IMonsterUpdateHandler getMonsterHandler(Monster monster) {
+	public static IMonsterUpdateHandler getMonsterHandler(MonsterType monster) {
 		return new BasicMonsterUpdateHandler(monster);
 	}
 }

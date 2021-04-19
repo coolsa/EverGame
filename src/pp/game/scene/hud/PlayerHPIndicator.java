@@ -8,7 +8,6 @@ import org.andengine.util.color.*;
 import pp.game.*;
 import pp.game.audio.*;
 import pp.game.entities.*;
-import pp.game.entities.IDieableEntity.HPState;
 import pp.game.level.*;
 import pp.game.observers.*;
 import pp.game.scene.*;
@@ -26,8 +25,8 @@ class PlayerHPIndicator extends Text {
 	private Color lowHPColor;
 	
 	private class PlayerHPIndicatorObserver implements IPreparable, IResetable, IDieableObserver {
-		private HPState prevHPState;
-		private HPState currentHPState;
+		private DieableEntity.HPState prevHPState;
+		private DieableEntity.HPState currentHPState;
 		private ILevel level;
 		private boolean prepared = false;
 		
@@ -36,7 +35,7 @@ class PlayerHPIndicator extends Text {
 		}
 		
 		@SuppressWarnings("incomplete-switch")
-		private void updateIndicator(IDieableEntity entity) {
+		private void updateIndicator(DieableEntity entity) {
 			currentHPState = Player.getInstance().getHPState();
 			if (currentHPState != prevHPState) {
 				switch (currentHPState) {
@@ -50,7 +49,7 @@ class PlayerHPIndicator extends Text {
 					break;
 				case LOW:
 					setColor(lowHPColor);
-					GameScene.getInstance().setCurrentMusic(GameMusicType.LOW_HP);
+					GameScene.getInstance().setCurrentMusic(new LowHP());
 					break;
 				}
 			}
@@ -78,7 +77,7 @@ class PlayerHPIndicator extends Text {
 		}
 		
 		@Override
-		public void onChanged(IDieableEntity observable) {
+		public void onChanged(DieableEntity observable) {
 			if (!prepared) {
 				return;
 			}
@@ -105,7 +104,9 @@ class PlayerHPIndicator extends Text {
 		Font font =	GameHUDSettings.getFont(android.graphics.Color.WHITE, FontSize.SMALL);		
 		PlayerHPIndicator indicator = new PlayerHPIndicator(font);
 		SceneLayoutUtils.adjustGameHUDText(indicator);
-		Player.getInstance().addObservable(indicator.new PlayerHPIndicatorObserver());
+
+		//Todo: see if this is really needed.
+//		Player.getInstance().addObservable(indicator.new PlayerHPIndicatorObserver());
 		return indicator;
 	}
 }

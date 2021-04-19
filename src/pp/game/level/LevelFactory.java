@@ -5,7 +5,7 @@ import pp.game.utils.type.*;
 import android.util.*;
 
 public class LevelFactory {
-	public static ILevelInitializer getLevel(LevelType type) {
+	public static ConfigLevelInitializer getLevel(LevelType type) {
 		try {
 			switch (type) {
 			case TEST_HIGH_HP_MANY_MONSTERS:

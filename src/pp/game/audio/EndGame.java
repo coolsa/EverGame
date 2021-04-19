@@ -1,23 +1,31 @@
-package pp.game.audio; 
+package pp.game.audio;
+
+import pp.game.level.ILevel;
+import pp.game.level.LevelMaker;
 
 public class EndGame extends GameMusicType
 {
-    private EndGame(String assetPath, Level l) {
-		super(assetPath, l);
+    public EndGame() {
+		super("music/game/end_game.ogg");
 	}
 	
 	public String getAssetPath() {
 		return assetPath;
 	}
 
-    public void setLevel(Level l)
+    public void setLevel(ILevel l)
     {
         this.l = l;
     }
 
     @Override
-    public void create_level()
-    {
-        l.setMusic(this.assetPath);
+    public LevelMaker maker() {
+        return null;
     }
+
+//    @Override
+//    public void create_level()
+//    {
+//        l.setMusic(this.assetPath);
+//    }
 }

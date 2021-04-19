@@ -58,9 +58,9 @@ public class SceneLayoutUtils {
 	
 	private static class CoefsHolder {
 		private static HashMap<MonsterType, Float> monsterSizeCoefs = new HashMap<MonsterType, Float>() {{
-			put(MonsterType.RUNNER, 0.22f);
-			put(MonsterType.SPIDER, 0.22f);
-			put(MonsterType.ZOMBIE, 0.22f);
+//			put(MonsterType.RUNNER, 0.22f);
+//			put(MonsterType.SPIDER, 0.22f);
+//			put(MonsterType.ZOMBIE, 0.22f);
 		}};		
 		private static HashMap<BonusType, Float> bonusSizeCoefs = new HashMap<BonusType, Float>() {{
 			put(BonusType.HP_LARGE, 0.10f);
@@ -127,8 +127,8 @@ public class SceneLayoutUtils {
 		return bullet;
 	}
 	
-	public static Monster adjustMonster(Monster monster) {
-		float sizeScaleCoef = CoefsHolder.monsterSizeCoefs.get(monster.getMonsterType());		
+	public static MonsterType adjustMonster(MonsterType monster) {
+		float sizeScaleCoef = CoefsHolder.monsterSizeCoefs.get(monster);
 		float size = monster.getAliveSprite().getWidth();
 		float scaleCoef = getScaleCoef(size, sizeScaleCoef);
 		monster.getAliveSprite().setScale(scaleCoef);

@@ -37,7 +37,7 @@ public class MainScene extends Scene implements IOnMenuItemClickListener, IChild
 		setChildScene(mainMenuScene);
 	}
 	
-	public static Scene getInstance() {
+	public static MainScene getInstance() {
 		if(INSTANCE == null) INSTANCE = new MainScene();
 		return INSTANCE;
 	}

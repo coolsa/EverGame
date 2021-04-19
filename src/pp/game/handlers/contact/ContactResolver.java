@@ -10,14 +10,14 @@ public class ContactResolver {
 		
 	}
 
-	public static IContactHandler getPlayerMonsterContactHandler(Monster monster) {
+	public static IContactHandler getPlayerMonsterContactHandler(MonsterType monster) {
 		return new PlayerMonsterContactUpdateHandler(monster);
 	}
 
-	public static void handleBulletMonsterContact(Bullet bullet, Monster monster) {
+	public static void handleBulletMonsterContact(Bullet bullet, MonsterType monster) {
 		monster.adjustCurrentHP(-bullet.getDamage());
 		AudioHolder.getInstance().playEntityHitSound(
-				TypeConverter.getEntityHitSoundType(monster.getMonsterType()));
+				TypeConverter.getEntityHitSoundType(monster));
 		PhysicsManager.getInstance().removeBody(bullet.getBody());
 	}
 	

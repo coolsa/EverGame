@@ -1,23 +1,31 @@
 package pp.game.audio;
 
+import pp.game.level.ILevel;
+import pp.game.level.LevelMaker;
+
 public class MusicThree extends GameMusicType
 {
-    private MusicThree(String assetPath, Level l) {
-		super(assetPath, l);
+    public MusicThree() {
+		super("music/game/base_2.ogg");
 	}
 	
 	public String getAssetPath() {
 		return assetPath;
 	}
 
-    public void setLevel(Level l)
+    public void setLevel(ILevel l)
     {
+//        l.setMusic(this.assetPath);
         this.l = l;
     }
 
     @Override
-    public void create_level()
-    {
-        l.setMusic(this.assetPath);
+    public LevelMaker maker() {
+        return null;
     }
+
+//    @Override
+//    public void create_level()
+//    {
+//    }
 }

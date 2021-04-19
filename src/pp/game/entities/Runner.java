@@ -2,44 +2,23 @@ package pp.game.entities;
 
 import org.andengine.entity.sprite.*;
 
+import pp.game.Game;
+import pp.game.handlers.level.BasicLevelHandler;
 import pp.game.level.*;
+import pp.game.textures.MonsterDeathTextureType;
+import pp.game.textures.MonsterWalkTextureType;
+import pp.game.textures.TextureHolder;
 
 import com.badlogic.gdx.physics.box2d.*;
 
-public class Runner extends MonsterType{
+import java.util.logging.Level;
 
-    public Runner(boolean dead, float currentHP, float maxHP, Body aliveBody, Body deadBody, String type, Level l, 
-    float hP, float walkSpeed, float damage,
-    float attackSpeed, int scorePoints, String interval, String intervalDec){
-        super(dead, currentHP, maxHP, aliveBody, deadBody, type, l, attackSpeed, scorePoints, interval, intervalDec);
+public class Runner extends MonsterType {
+
+    public Runner() {
+        super(false, 150, 150, null, null, "RUNNER", null,
+                100, 0.50f, 5,
+                0.5f, 10);
     }
-
-	@Override
-    public void create_level()
-    {
-        l.setMonsterTypes(this.type);
-        l.setSpawnInterval(this.spawnIntervals);
-        l.setSpawnIntervalDec(this.spawnIntervalDecrements);
-    }
-	
-    public float getHP() {
-		return HP;
-	}
-
-	public float getWalkSpeed() {
-		return walkSpeed;
-	}
-
-	public float getDamage() {
-		return damage;
-	}
-
-	public float getAttackSpeed() {
-		return attackSpeed;
-	}
-
-	public int getScorePoints() {
-		return scorePoints;
-	}
 
 }

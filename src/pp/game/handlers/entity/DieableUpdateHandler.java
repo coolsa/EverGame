@@ -4,24 +4,24 @@ import pp.game.entities.*;
 import pp.game.handlers.*;
 
 public abstract class DieableUpdateHandler extends UpdateHandler {
-	private IDieableEntity[] entities;
+	private DieableEntity[] entities;
 	private IHandlerCommand[] commands;
 	private boolean executed = false;
 	
 	public DieableUpdateHandler() {
-		this(new IDieableEntity[0], new IHandlerCommand[0]);
+		this(new DieableEntity[0], new IHandlerCommand[0]);
 	}
 	
-	public DieableUpdateHandler(IDieableEntity[] entities) {
+	public DieableUpdateHandler(DieableEntity[] entities) {
 		this(entities, new IHandlerCommand[0]);
 	}
 	
-	public DieableUpdateHandler(IDieableEntity[] entities, IHandlerCommand[] commands) {
+	public DieableUpdateHandler(DieableEntity[] entities, IHandlerCommand[] commands) {
 		this.entities = entities;
 		this.commands = commands;
 	}
 	
-	protected void setEntities(IDieableEntity...entities) {
+	protected void setEntities(DieableEntity...entities) {
 		this.entities = entities;
 	}
 	
@@ -31,7 +31,7 @@ public abstract class DieableUpdateHandler extends UpdateHandler {
 	
 	@Override
 	final public void onUpdate(float secondsElapsed) {
-		for (IDieableEntity entity : entities) {
+		for (DieableEntity entity : entities) {
 			if (entity.isDead()) {
 				if (!executed) {
 					for (IHandlerCommand command : commands) {

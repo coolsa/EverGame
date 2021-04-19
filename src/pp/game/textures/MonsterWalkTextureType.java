@@ -6,13 +6,13 @@ import pp.game.utils.geometry.*;
 
 public enum MonsterWalkTextureType {
 	RUNNER("monsters/runner/walk.png", 24, 6, 4, 0.5f,
-			CalcUtils.getMonsterAnimationDuration(MonsterType.RUNNER), 
+			CalcUtils.getMonsterAnimationDuration(0.5f),
 			new int[] { 7, 15 }),
-	ZOMBIE("monsters/zombie/walk.png", 24, 6, 4, 
-			CalcUtils.getMonsterAnimationDuration(MonsterType.ZOMBIE), 
+	ZOMBIE("monsters/zombie/walk.png", 24, 6, 4,
+			CalcUtils.getMonsterAnimationDuration(0.17f),
 			new int[] { 8, 20 }),
-	SPIDER("monsters/spider/walk.png", 13, 4, 4, 
-			CalcUtils.getMonsterAnimationDuration(MonsterType.SPIDER), 
+	SPIDER("monsters/spider/walk.png", 13, 4, 4,
+			CalcUtils.getMonsterAnimationDuration(0.33f),
 			new int[] { 0, 4, 8 });
 
 	public static final int MONSTER_TEXTURE_HEIGHT = 128;

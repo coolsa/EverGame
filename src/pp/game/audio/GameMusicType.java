@@ -9,21 +9,20 @@ import com.badlogic.gdx.physics.box2d.*;
 public abstract class GameMusicType implements LevelAspect
 {
     protected String assetPath;
-    protected Level l;
+    protected ILevel l;
 
-    private GameMusicType(String assetPath, Level l) {
+    public GameMusicType(String assetPath) {
 		this.assetPath = assetPath;
-        this.l = l;
 	}
 	
 	public String getAssetPath() {
 		return assetPath;
 	}
 
-    @Override
-    public void create_level();
 
     @Override
-    public String item(); 
+    public String item() {
+        return assetPath;
+    }
 
 }
