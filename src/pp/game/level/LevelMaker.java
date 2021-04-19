@@ -1,7 +1,4 @@
-public interface LevelAspect{
-    public LevelMaker maker();
-    public String item();
-}
+package pp.game.level;
 
 public interface LevelMaker{
     public void create_level();

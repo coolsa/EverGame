@@ -71,9 +71,19 @@ public class TextureHolder implements IDestroyable {
 			playerControlTextures.put(value, BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(atlas, assets, value.getAssetPath()));
 		}
-		
+
 		backgroundTextures = new HashMap<BackgroundTextureType, AssetBitmapTextureAtlasSource>();
-		for (BackgroundTextureType value : BackgroundTextureType.values()) {
+		{
+			BackgroundTextureType value = new BackgroundFour();
+			backgroundTextures.put(value, AssetBitmapTextureAtlasSource.create(
+					assets, value.getAssetPath()));
+			value = new BackgroundThree();
+			backgroundTextures.put(value, AssetBitmapTextureAtlasSource.create(
+					assets, value.getAssetPath()));
+			value = new BackgroundTwo();
+			backgroundTextures.put(value, AssetBitmapTextureAtlasSource.create(
+					assets, value.getAssetPath()));
+			value = new BackgroundOne();
 			backgroundTextures.put(value, AssetBitmapTextureAtlasSource.create(
 					assets, value.getAssetPath()));
 		}

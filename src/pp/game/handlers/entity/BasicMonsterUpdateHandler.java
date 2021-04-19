@@ -13,7 +13,7 @@ public class BasicMonsterUpdateHandler extends DieableUpdateHandler implements I
 	private static final float MIN_COORD_DIFF = 20f;
 	
 	private Player player;
-	private Monster monster;
+	private MonsterType monster;
 	private AnimatedSprite aliveSprite;
 	private MonsterWalkTextureType monsterWalkType;
 	private long[] durations;
@@ -36,15 +36,15 @@ public class BasicMonsterUpdateHandler extends DieableUpdateHandler implements I
 		}
 	}
 	
-	public BasicMonsterUpdateHandler(Monster monster) {
+	public BasicMonsterUpdateHandler(MonsterType monster) {
 		setEntities(monster, Player.getInstance());
 		setCommands(new BasicMonsterHandlerCommand());
 		
 		this.monster = monster;
-		aliveSprite = monster.getAliveSprite();
+		aliveSprite = (AnimatedSprite) monster.getAliveSprite();
 		player = Player.getInstance();
 		
-		monsterWalkType = TypeConverter.getMonsterWalkTextureType(monster.getMonsterType());
+		monsterWalkType = TypeConverter.getMonsterWalkTextureType(monster);
 		durations = new long[monsterWalkType.getTilesCount()];
 		for (int i = 0; i < durations.length; i++) {
 			durations[i] = monsterWalkType.getAnimationDuration();
@@ -52,11 +52,11 @@ public class BasicMonsterUpdateHandler extends DieableUpdateHandler implements I
 	}
 	
 	private void animateAndRun(final Point direction) {
-		if (!monster.getAliveSprite().isAnimationRunning()) {
-			monster.getAliveSprite().animate(durations, true);
+		if (!((AnimatedSprite)monster.getAliveSprite()).isAnimationRunning()) {
+			((AnimatedSprite)monster.getAliveSprite()).animate(durations, true);
 		}
-		monster.getBody().setLinearVelocity(monster.getMonsterType().getWalkSpeed() 
-				* direction.x, monster.getMonsterType().getWalkSpeed() * direction.y);
+		monster.getBody().setLinearVelocity(monster.getWalkSpeed()
+				* direction.x, monster.getWalkSpeed() * direction.y);
 	}
 	
 	@Override
@@ -71,10 +71,10 @@ public class BasicMonsterUpdateHandler extends DieableUpdateHandler implements I
 		if ((diffAbs.x + diffAbs.y) / 2 > MIN_COORD_DIFF) {
 			animateAndRun(direction);
 		} else {
-			monster.getAliveSprite().stopAnimation();
-			monster.getAliveSprite().setCurrentTileIndex(
-					CalcUtils.getGreaterOrEqual(monsterWalkType.getStopTiles(), 
-					monster.getAliveSprite().getCurrentTileIndex()));
+			((AnimatedSprite)monster.getAliveSprite()).stopAnimation();
+			((AnimatedSprite)monster.getAliveSprite()).setCurrentTileIndex(
+					CalcUtils.getGreaterOrEqual(monsterWalkType.getStopTiles(),
+							((AnimatedSprite)monster.getAliveSprite()).getCurrentTileIndex()));
 			monster.getBody().setLinearVelocity(0, 0);
 		}
 	}

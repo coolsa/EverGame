@@ -2,11 +2,12 @@ package pp.game;
 
 import java.util.*;
 
+import pp.game.handlers.level.BasicLevelHandler;
 import pp.game.level.*;
 import pp.game.observers.*;
 
 public interface IGame extends IObservable<Integer> {
-	void start(ILevelInitializer level);
+	void start(ConfigLevelInitializer levelInitializer);
 	void addScore(int score);
 	int getCurrentScore();
 	void pause();

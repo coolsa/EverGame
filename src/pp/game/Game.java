@@ -11,6 +11,7 @@ import org.andengine.util.debug.*;
 
 import pp.game.audio.*;
 import pp.game.entities.*;
+import pp.game.handlers.level.BasicLevelHandler;
 import pp.game.level.*;
 import pp.game.observers.*;
 import pp.game.physics.*;
@@ -116,7 +117,7 @@ public class Game implements IGame, IGameInitializer, IObservable<Integer> {
 	public void initialize() {	
 		AudioHolder.getInstance().initialize();
 		TextureHolder.getInstance();
-		scene = MainScene.getInstance();
+		this.scene = MainScene.getInstance();
 		initializePreparables();
 	}	
 	
@@ -139,7 +140,7 @@ public class Game implements IGame, IGameInitializer, IObservable<Integer> {
 		
 		return scores;
 	}
-	
+
 	@Override
 	public void addScore(int score) {
 		this.score += score;
@@ -152,15 +153,14 @@ public class Game implements IGame, IGameInitializer, IObservable<Integer> {
 	}
 	
 	@Override
-	public void start(ILevelInitializer levelInitializer) {
+	public void start(ConfigLevelInitializer levelInitializer) {
 		score = 0;
 		notifyScoreObservers();
-		
+
 		Collections.sort(preparables, prioritizedComp);
 		GameScene.getInstance().registerLevelHandler(levelInitializer.getLevelHandler());
-		ILevel level = levelInitializer.getLevel();
 		for (IPreparable preparable : preparables) {
-			preparable.prepare(level);
+			preparable.prepare(levelInitializer.getLevel());
 		}
 	}
 	

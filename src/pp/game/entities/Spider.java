@@ -2,55 +2,30 @@ package pp.game.entities;
 
 import org.andengine.entity.sprite.*;
 
+import pp.game.Game;
+import pp.game.handlers.level.BasicLevelHandler;
 import pp.game.level.*;
+import pp.game.textures.MonsterDeathTextureType;
+import pp.game.textures.MonsterWalkTextureType;
+import pp.game.textures.SingleTiledTextureType;
+import pp.game.textures.TextureHolder;
+import pp.game.utils.type.TypeConverter;
 
 import com.badlogic.gdx.physics.box2d.*;
 
-public class Spider extends MonsterType
-{
+import java.util.logging.Level;
 
-    public Spider(boolean dead, float currentHP, float maxHP, Body aliveBody, Body deadBody, String type, Level l, 
-    float hP, float walkSpeed, float damage,
-    float attackSpeed, int scorePoints, String interval, String intervalDec){
-        super(dead, currentHP, maxHP, aliveBody, deadBody, type, l, attackSpeed, scorePoints, interval, intervalDec);
-    } 
+public class Spider extends MonsterType {
 
-    @Override
-    public void create_level()
-    {
-        l.setMonsterTypes(this.type);
-        l.setSpawnInterval(this.spawnIntervals);
-        l.setSpawnIntervalDec(this.spawnIntervalDecrements);
+    public Spider() {
+        //Todo: put the animatedSprite creation in the dieable type!
+        super(false, 150, 150, null, null, "SPIDER", null,
+                150, 0.33f, 10,
+                0.75f, 15);
     }
 
     @Override
-    public String item()
-    {
+    public String item() {
         return type;
-    }
-    
-    public float getHP() {
-		return HP;
-	}
-
-	public float getWalkSpeed() {
-		return walkSpeed;
-	}
-
-	public float getDamage() {
-		return damage;
-	}
-
-	public float getAttackSpeed() {
-		return attackSpeed;
-	}
-
-	public int getScorePoints() {
-		return scorePoints;
-	}
-
-	public void setLevel(Level l)
-    {
-        this.l = l;
     }
 }

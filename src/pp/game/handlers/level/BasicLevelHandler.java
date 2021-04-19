@@ -45,7 +45,7 @@ public class BasicLevelHandler extends DelayedUpdateHandler implements ILevelHan
 			}
 			
 			if (currentSpawnIntervals[i] <= 0) {
-				Monster monster = Monster.getMonster(monsterTypes[fI]);
+				MonsterType monster = null; //MonsterType.getMonster(monsterTypes[fI]);
 				GameScene.getInstance().attachChild(monster.getAliveSprite());
 				currentSpawnIntervals[i] = spawnIntervals[i];
 			}

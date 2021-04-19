@@ -16,7 +16,8 @@ class TestLevelInitializer extends ConfigLevelInitializer {
 	}
 	
 	public ILevelHandler getLevelHandler() {
-		return handler == null ? new TestLevelHandler((BasicLevelHandler)super.getLevelHandler())
-				: handler;
+		return null;
+//		return handler == null ? new TestLevelHandler((BasicLevelHandler)super.getLevelHandler())
+//				: handler;
 	}
 }

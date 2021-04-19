@@ -105,7 +105,7 @@ public class BonusManager {
 		});
 	}
 	
-	public void onMonsterDeath(final Monster monster) {
+	public void onMonsterDeath(final MonsterType monster) {
 		final BonusType type = getBonusType();
 		
 		if (type == BonusType.NONE) {
@@ -129,7 +129,7 @@ public class BonusManager {
 		case SHOTGUN:
 		case UZI:
 			player.setWeapon(Weapon.getWeapon(WeaponType.valueOf(
-					bonus.getBonusType().toString())));
+					this.getBonusType().toString())));
 			break;
 		case HP_LARGE:
 			player.adjustCurrentHP(BonusManager.BONUS_HP_LARGE_VALUE);

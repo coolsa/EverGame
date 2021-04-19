@@ -2,9 +2,12 @@ package pp.game.entities;
 
 import org.andengine.entity.sprite.*;
 
+import pp.game.handlers.level.BasicLevelHandler;
 import pp.game.level.*;
 
 import com.badlogic.gdx.physics.box2d.*;
+
+import java.util.logging.Level;
 
 public class MonsterType extends DieableEntity {
 	private float HP;
@@ -15,29 +18,34 @@ public class MonsterType extends DieableEntity {
     private String spawnIntervals;
     private String spawnIntervalDecrements;
 
-    private MonsterType(boolean dead, float currentHP, float maxHP, Body aliveBody, Body deadBody, String type, Level l, 
-            float hP, float walkSpeed, float damage,
-			float attackSpeed, int scorePoints, String interval, String intervalDec) {
+    public MonsterType(boolean dead, float currentHP, float maxHP, Body aliveBody, Body deadBody, String type, BasicLevelHandler l,
+					   float hP, float walkSpeed, float damage,
+					   float attackSpeed, int scorePoints) {
         super(dead, currentHP, maxHP, aliveBody, deadBody, type, l);
 		HP = hP;
 		this.walkSpeed = walkSpeed;
 		this.damage = damage;
 		this.attackSpeed = attackSpeed;
 		this.scorePoints = scorePoints;
-        spawnIntervals = interval;
-        spawnIntervalDecrements = intervalDec;
+        spawnIntervals = "monsters.spawn.interval";
+        spawnIntervalDecrements = "monsters.spawn.interval.decrement";
 	}
+
 	@Override
-    public abstract create_level()
+    public LevelMaker maker()
 	{
-		l.setMonsterTypes(this.type);
-        l.setSpawnInterval(this.spawnIntervals);
-        l.setSpawnIntervalDec(this.spawnIntervalDecrements);
+		return null;
 	}
+
 	@Override
 	public String item()
 	{
 		return type;
+	}
+
+	@Override
+	protected void die() {
+    	//not needed for monsters.
 	}
 
 	public float getHP() {
@@ -65,13 +73,17 @@ public class MonsterType extends DieableEntity {
         return spawnIntervals;
     }
 
-    public String get spawnIntervalDec()
+    public String getSpawnIntervalDecrement()
     {
         return spawnIntervalDecrements;
     }
 
-    public void setLevel(Level l)
+    public void setLevel(BasicLevelHandler l)
     {
         this.l = l;
     }
+
+    public Sprite getAliveSprite(){
+    	return this.aliveSprite;
+	}
 }

@@ -39,8 +39,8 @@ public class CalcUtils {
 		return array[0];
 	}
 	
-	public static int getMonsterAnimationDuration(MonsterType type) {
+	public static int getMonsterAnimationDuration(float walkSpeed ) {
 		return (int)(SingleTiledTextureType.PLAYER_WALK.getAnimationDuration()
-				* (SceneLayoutUtils.DEFAULT_PLAYER_SPEED / type.getWalkSpeed()));
+				* walkSpeed);
 	}
 }
